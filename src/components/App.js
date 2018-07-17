@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { handleInitialData } from '../actions/shared'
+import Polls from './Polls'
 
 class App extends Component {
   componentDidMount () {
@@ -12,6 +13,7 @@ class App extends Component {
     return (
       <div>
         Starter Code.
+        <Polls />
       </div>
     )
   }
