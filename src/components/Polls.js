@@ -8,8 +8,8 @@ class Polls extends React.Component {
     return (
       <div className="container">
         <div className="dashboard-list">
-          <a><h1>Unanswered</h1></a>|
-          <a><h1>Answered</h1></a>
+          <a><h2>Unanswered</h2></a>
+          <a><h2>Answered</h2></a>
         </div>
         <List items={this.props.polls} />
       </div>
