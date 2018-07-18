@@ -13,7 +13,7 @@ class Dashboard extends Component {
 }
 
 function mapStateToProps ({ authedUser, polls, users }) {
-  const answers = Object.keys(users[authedUser].answers)
+  const answers = users[authedUser].answers
 
   const answered = answers.map((id) => polls[id])
     .sort((a,b) => b.timestamp - a.timestamp)
