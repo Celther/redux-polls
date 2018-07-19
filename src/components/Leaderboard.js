@@ -1,47 +1,44 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
-class Leaderboard extends Component {
-  populateLeaderboard = (users) => {
-    const userIds = Object.keys(users)
-    return (
-      <div>
-        {userIds.map((userId) => {
-          const { avatarURL, answers, polls, name, id } = users[userId]
-          return (
-            <div className="user" key={id}>
-              <img
-                src={avatarURL}
-                alt={`${name}'s Avatar`}
-                className="avatar"
-              />
-              <h1>{name}</h1>
-              <ul>
-                <li>
-                  {`${polls.length} Polls`}
-                </li>
-                <li>
-                  {`${answers.length} Answers`}
-                </li>
-              </ul>
-            </div>
-          )
-        })}
-      </div>
-    )
-  }
+function Leaderboard({ users }) {
+  return (
+    <ul>
+      {users.map((user) => (
+          <li className="user" key={user.id}>
+            <img
+              src={user.avatarURL}
+              alt={`${user.name}'s Avatar`}
+              className="avatar"
+            />
+          <div>
+            <h1>{user.name}</h1>
+            <p>{`${user.polls} Polls`}</p>
+            <p>{`${user.answers} Answers`}</p>
+          </div>
+          </li>
+        )
+      )}
+    </ul>
+  )
+}
 
-  render () {
-    const { users } = this.props
+function mapStateToProps({ users }) {
+  return {
+    users: Object.keys(users)
+      .map((id) => {
+        const { avatarURL, answers, polls, name } = users[id]
 
-    return (
-      <div className="container">
-        {this.populateLeaderboard(users)}
-      </div>
-    )
+        return {
+          id,
+          name,
+          avatarURL,
+          polls: polls.length,
+          answers: answers.length,
+        }
+      })
+      .sort((a, b) => b.polls + b.answers > a.polls + a.answers)
   }
 }
 
-export default connect(({ users }) => ({
-  users,
-}))(Leaderboard)
+export default connect(mapStateToProps)(Leaderboard)

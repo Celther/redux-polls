@@ -17,10 +17,7 @@ class App extends Component {
         <LoadingBar />
         {this.props.loading
           ? null
-          : <div>
-              <Dashboard />
-              <Leaderboard />
-            </div>}
+          : <Leaderboard />}
       </div>
     )
   }
