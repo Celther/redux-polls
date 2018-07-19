@@ -5,9 +5,7 @@ export default function List (props) {
     <ul className="dashboard-list">
       {props.items.map((poll) => (
         <li key={poll.id}>
-          <p>
-            {poll.question}
-          </p>
+          {poll.question}
         </li>
       ))}
     </ul>
