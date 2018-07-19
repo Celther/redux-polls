@@ -12,6 +12,7 @@ class Dashboard extends Component {
       showAnswered: false
     }))
   }
+
   showAnswered = () => {
     this.setState(() => ({
       showAnswered: true
@@ -21,7 +22,7 @@ class Dashboard extends Component {
   render () {
     const { showAnswered } = this.state
     const { answered, unanswered } = this.props
-    
+
     return (
       <div className="container">
         <div className="dashboard-toggle">
