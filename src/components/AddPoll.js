@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { submitPoll } from '../actions/polls'
+import { handleAddPoll } from '../actions/polls'
 
 class AddPoll extends Component {
   state = {
@@ -33,8 +33,8 @@ class AddPoll extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
 
-    console.log(this.state, "state");
-    this.props.dispatch(submitPoll(this.state))
+    // TODO: Add redirect to home '/' once router set up
+    this.props.dispatch(handleAddPoll(this.state))
   }
 
   render() {

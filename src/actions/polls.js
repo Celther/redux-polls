@@ -1,8 +1,7 @@
 import { savePoll } from '../utils/api'
 
 export const RECEIVE_POLLS = 'RECEIVE_POLLS'
-export const UPDATE_POLLS = 'UPDATE_POLLS'
-export const SUBMIT_POLL = 'SUBMIT_POLL'
+export const ADD_POLL = 'ADD_POLL'
 
 export function receivePolls (polls) {
   return {
@@ -11,21 +10,22 @@ export function receivePolls (polls) {
   }
 }
 
-export function updatePolls (poll) {
+export function addPoll (poll) {
   return {
-    type: UPDATE_POLLS,
+    type: ADD_POLL,
     poll,
   }
 }
 
-export function submitPoll (poll) {
-  return (dispatch) => {
-    savePoll(poll)
-      .then((p) => {
-        dispatch(updatePolls(p))
-      })
-      .catch((e) => {
-        alert(`Error: ${e.message || e}`)
-      })
+export function handleAddPoll (poll) {
+  return (dispatch, getState) => {
+    const { authedUser } = getState()
+
+    savePoll({
+      ...poll,
+      author: authedUser,
+    })
+      .then((p) => dispatch(addPoll(p)))
+      .catch((e) => alert(`Error: ${e.message || e}`))
   }
 }

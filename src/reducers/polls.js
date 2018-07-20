@@ -1,6 +1,6 @@
 import {
   RECEIVE_POLLS,
-  UPDATE_POLLS,
+  ADD_POLL,
  } from '../actions/polls'
 
 export default function polls (state = {}, action) {
@@ -10,12 +10,10 @@ export default function polls (state = {}, action) {
         ...state,
         ...action.polls,
       }
-    case UPDATE_POLLS:
+    case ADD_POLL:
       return {
         ...state,
-        [action.poll.id]: {
-          ...action.poll
-        }
+        [action.poll.id]: action.poll,
       }
     default:
       return state
