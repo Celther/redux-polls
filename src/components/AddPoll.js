@@ -2,42 +2,91 @@ import React, { Component } from 'react'
 
 class AddPoll extends Component {
   state = {
-    
+    question: '',
+    a: '',
+    b: '',
+    c: '',
+    d: '',
   }
 
-  handleChange = () => {
-    console.log('Hi Dere');
+  handleInputChange = (e) => {
+    const { name, value } = e.target
+
+    this.setState((prevState) => ({
+      [name]: value
+    }))
+  }
+
+  isDisabled = () => {
+    const { question, a, b, c, d } = this.state
+
+    return question === ''
+      || a === ''
+      || b === ''
+      || c === ''
+      || d === ''
   }
 
   handleSubmit = (e) => {
     e.preventDefault()
+
+    console.log("State", this.state);
   }
 
-
   render() {
-    const state = this.state
+    const { question, a, b, c, d } = this.state
 
     return (
-      <form className="add-poll-container">
-        <label>
-          <h2>What is your Question?</h2>
-          <input name="poll-question"/>
-        </label>
-        <label>
-          <h2>What are the options?</h2>
-          <label htmlFor="option-a">A.</label>
-          <input
-            name="option-a"
-            className="input"
-          />
-          <label htmlFor="option-b">B.</label>
-          <input
+      <form className="add-form" onSubmit={this.handleSubmit}>
+        <h3 style={{marginBottom: 5}}>What is your Question?</h3>
+        <input
+          name="question"
+          value={question}
+          onChange={this.handleInputChange}
+          type="text"
+          className="input"
+        />
 
-            name="option-b"
-            className="input"
-          />
-        </label>
-        <input type="submit" value="Submit" className="btn"/>
+        <h3>What are the options?</h3>
+        <label className="label" htmlFor="a">A.</label>
+        <input
+          name="a"
+          value={a}
+          onChange={this.handleInputChange}
+          className="input"
+          type="text"
+          id="a"
+        />
+        <label className="label" htmlFor="b">B.</label>
+        <input
+          name="b"
+          value={b}
+          onChange={this.handleInputChange}
+          className="input"
+          type="text"
+          id="b"
+        />
+        <label className="label" htmlFor="c">C.</label>
+        <input
+          name="c"
+          value={c}
+          onChange={this.handleInputChange}
+          className="input"
+          type="text"
+          id="c"
+        />
+        <label className="label" htmlFor="d">D.</label>
+        <input
+          name="d"
+          value={d}
+          onChange={this.handleInputChange}
+          className="input"
+          type="text"
+          id="d"
+        />
+        <button type="submit" className="btn" disabled={this.isDisabled()}>
+          Submit
+        </button>
       </form>
     )
   }
