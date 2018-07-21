@@ -34,20 +34,16 @@ export function handleAddPoll (poll) {
   }
 }
 
-function addPollAnswer (args) {
+function addPollAnswer (payload) {
   return {
     type: ADD_POLL_ANSWER,
-    args,
+    payload,
   }
 }
 
-export function handleAddPollAnswer (poll) {
-  return (dispatch, getState) => {
-    const { authedUser } = getState()
-    const { id, answer } = poll
-    const args = { authedUser, id, answer }
-
-    savePollAnswer(args)
-      .then(() => addPollAnswer(args))
+export function handleAddPollAnswer (payload) {
+  return (dispatch) => {
+    savePollAnswer(payload)
+      .then(() => dispatch(addPollAnswer(payload)))
   }
 }
