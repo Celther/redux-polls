@@ -14,8 +14,8 @@ class Poll extends Component {
 function mapStateToProps ({ authedUser, polls, users }, { match }) {
   const { id } = match.params
   const poll = polls[id]
-  const author = users[poll.author]
-  const user = users[authedUser]
+  const { avatarURL } = users[poll.author]
+
   // If user tries to access a poll that doesn't exist
   if (!poll) {
     return {
@@ -37,8 +37,9 @@ function mapStateToProps ({ authedUser, polls, users }, { match }) {
 
   return {
     poll,
-    author,
-    user,
+    vote,
+    authedUser,
+    authorAvatar: avatarURL,
   }
 }
 
