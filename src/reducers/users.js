@@ -20,11 +20,11 @@ export default function users (state = {}, action) {
         }
       }
     case ADD_POLL_ANSWER:
-      const { authedUser } = action.args
+      const { authedUser } = action.payload
 
       const updateAnswers = () => {
         const answers = state[authedUser].answers
-        const answer = action.args.id
+        const answer = action.payload.id
 
         if (answers.includes(answer)) {
           return answers
