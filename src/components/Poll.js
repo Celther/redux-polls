@@ -4,9 +4,11 @@ import { connect } from 'react-redux'
 const getVoteKeys = () => ['aVotes', 'bVotes', 'cVotes', 'dVotes']
 
 class Poll extends Component {
-  handleClick = (e) => {
-    e.preventDefault()
+  handleAnswer = (answer) => {
+    const { poll, authedUser } = this.props
+    this.answered = true
 
+    console.log(`${authedUser} clicked ${answer}`);
   }
 
   calcPercentage = (vote) => {
@@ -25,14 +27,11 @@ class Poll extends Component {
 
     return (
       <div className="poll-container">
-        {JSON.stringify(this.props)}
-        <h2 className="question">{question}</h2>
+        <h1 className="question">
+          {poll.question}
+        </h1>
         <div className="poll-author">
-          By
-          <img
-            src={this.props.authorAvatar}
-            alt="Author's Avatar"
-          />
+          By <img src={authorAvatar} alt="Author's Avatar" />
         </div>
 
         <ul>
@@ -41,6 +40,11 @@ class Poll extends Component {
               <li
                 className={`option ${vote === key[0] ? 'chosen' : ''}`}
                 key={key}
+                onClick={() => {
+                  if (vote === null && !this.answered) {
+                    this.handleAnswer(key[0])
+                  }
+                }}
               >
                 <div className="result">
                   <span>{poll[key]}</span>
