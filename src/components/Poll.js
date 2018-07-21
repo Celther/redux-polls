@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 class Poll extends Component {
   render () {
     return (
-      <div>
-        Hi
+      <div className="poll-container">
+        {JSON.stringify(this.props)}
       </div>
     )
   }
