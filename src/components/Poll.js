@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+const getVoteKeys = () => ['aVotes', 'bVotes', 'cVotes', 'dVotes']
+
 class Poll extends Component {
   handleClick = (e) => {
     e.preventDefault()
@@ -8,13 +10,10 @@ class Poll extends Component {
   }
 
   calcPercentage = (vote) => {
-    const { poll } = this.props
-    const totalVotes = poll.aVotes.length
-      + poll.bVotes.length
-      + poll.cVotes.length
-      + poll.dVotes.length
+    const totalVotes = getVoteKeys()
+      .reduce((total, key) => total + this.props.poll[key].length, 0)
 
-    return `${vote.length / totalVotes * 100}% `
+    return `${parseInt(vote.length / totalVotes * 100, 10)}% `
   }
 
   render () {
@@ -73,7 +72,7 @@ function mapStateToProps ({ authedUser, polls, users }, { match }) {
     }
   }
 
-  const vote = ['aVotes', 'bVotes', 'cVotes', 'dVotes'].reduce((vote, key) => {
+  const vote = getVoteKeys().reduce((vote, key) => {
     if (vote !== null) {
       return vote[0]
     }
