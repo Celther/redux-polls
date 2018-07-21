@@ -18,14 +18,11 @@ class Poll extends Component {
   }
 
   render () {
-    const { poll } = this.props
-    const {
-      question,
-      aText,
-      bText,
-      cText,
-      dText,
-    } = poll
+    if (this.props.poll === null) {
+      return <p>This poll does not exist</p>
+    }
+
+    const { poll, vote, authorAvatar } = this.props
 
     return (
       <div className="poll-container">
@@ -40,50 +37,24 @@ class Poll extends Component {
         </div>
 
         <ul>
-          <li onClick={this.handleClick} className="option">
-            <div className="result">
-              <span>{aText}</span>
-              {this.props.vote
-                ? <span>
-                    {this.calcPercentage(poll.aVotes)}
-                    ({poll.aVotes.length})
-                  </span>
-                : null}
-            </div>
-          </li>
-          <li onClick={this.handleClick} className="option">
-            <div className="result">
-              <span>{bText}</span>
-              {this.props.vote
-                ? <span>
-                    {this.calcPercentage(poll.bVotes)}
-                    ({poll.bVotes.length})
-                  </span>
-                : null}
-            </div>
-          </li>
-          <li onClick={this.handleClick} className="option">
-            <div className="result">
-              <span>{cText}</span>
-              {this.props.vote
-                ? <span>
-                    {this.calcPercentage(poll.cVotes)}
-                    ({poll.cVotes.length})
-                  </span>
-                : null}
-            </div>
-          </li>
-          <li onClick={this.handleClick} className="option">
-            <div className="result">
-              <span>{dText}</span>
-              {this.props.vote
-                ? <span>
-                    {this.calcPercentage(poll.dVotes)}
-                    ({poll.dVotes.length})
-                  </span>
-                : null}
-            </div>
-          </li>
+          {['aText', 'bText', 'cText', 'dText'].map((key) => {
+            return (
+              <li
+                className={`option ${vote === key[0] ? 'chosen' : ''}`}
+                key={key}
+              >
+                <div className="result">
+                  <span>{poll[key]}</span>
+                  {vote
+                    ? <span>
+                        {this.calcPercentage(poll[`${key[0]}Votes`])}
+                        ({poll[`${key[0]}Votes`].length})
+                      </span>
+                    : null}
+                </div>
+              </li>
+            )
+          })}
         </ul>
       </div>
     )
