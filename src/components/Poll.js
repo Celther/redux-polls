@@ -4,14 +4,23 @@ import { connect } from 'react-redux'
 class Poll extends Component {
   render () {
     return (
-      <div>Hi</div>
+      <div>
+        Hi
+      </div>
     )
   }
 }
 
 function mapStateToProps ({ authedUser, polls, users }, { match }) {
-  return {
+  const { id } = match.params
+  const poll = polls[id]
+  const author = users[poll.author]
+  const user = users[authedUser]
 
+  return {
+    poll,
+    author,
+    user,
   }
 }
 
