@@ -33,7 +33,7 @@ class AddPoll extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
 
-    // TODO: Add redirect to home '/' once router set up
+    this.props.history.push('/')
     this.props.dispatch(handleAddPoll(this.state))
   }
 

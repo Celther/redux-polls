@@ -24,7 +24,7 @@ class Dashboard extends Component {
     const { answered, unanswered } = this.props
 
     return (
-      <div className="container">
+      <div>
         <div className="dashboard-toggle">
           <button
             style={{textDecoration: !showAnswered ? 'underline' : null}}
