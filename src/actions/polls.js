@@ -43,7 +43,9 @@ function addPollAnswer (payload) {
 
 export function handleAddPollAnswer (payload) {
   return (dispatch) => {
+    dispatch(showLoading())
     savePollAnswer(payload)
       .then(() => dispatch(addPollAnswer(payload)))
+      .then(() => dispatch(hideLoading()))
   }
 }

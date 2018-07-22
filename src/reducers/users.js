@@ -30,7 +30,7 @@ export default function users (state = {}, action) {
           return answers
         }
 
-        return answers.concat(answer)
+        return answers.concat([answer])
       }
 
       return {

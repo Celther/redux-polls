@@ -19,12 +19,12 @@ export default function polls (state = {}, action) {
     case ADD_POLL_ANSWER:
       const { id, authedUser, answer } = action.payload
       const votes = answer + 'Votes'
-      
+
       return {
         ...state,
         [id]: {
           ...state[id],
-          [votes]: state[id][votes].concat(authedUser)
+          [votes]: state[id][votes].concat([authedUser])
         }
       }
     default:
